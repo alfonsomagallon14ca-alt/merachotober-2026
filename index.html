@@ -968,64 +968,37 @@
 
 
 
-/* ======================================================== CALENDARIO AUTOMÁTICO ======================================================== */ const calendar = document.getElementById('calendar'); for (let day = 1; day <= 31; day++) { const cell = document.createElement('div'); cell.className = 'calendar-day'; cell.innerHTML = <div class="calendar-avatar flex items-center justify-center"> <span class="text-[9px] text-white/20"> [DÍA ${day}] </span> </div> <span class="calendar-number"> ${day} </span> ; calendar.appendChild(cell); }
+<script>
 
     /* ========================================================
-       REVEAL ON SCROLL
+       CALENDARIO AUTOMÁTICO
        ======================================================== */
 
-    const revealElements = document.querySelectorAll('.reveal');
+    const calendar = document.getElementById('calendar');
 
-    const observer = new IntersectionObserver(
-        (entries) => {
+    for (let day = 1; day <= 31; day++) {
 
-            entries.forEach(entry => {
+        const cell = document.createElement('div');
 
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        cell.className = 'calendar-day';
 
-            });
+        cell.innerHTML = `
+            <div class="calendar-avatar flex items-center justify-center">
+                <span class="text-[9px] text-white/20">
+                    [DÍA ${day}]
+                </span>
+            </div>
 
-        },
-        {
-            threshold: 0.15
-        }
-    );
+            <span class="calendar-number">
+                ${day}
+            </span>
+        `;
 
-    revealElements.forEach(element => {
-        observer.observe(element);
-    });
+        calendar.appendChild(cell);
+    }
 
+</script>
 
-    /* ========================================================
-       SNAP-SCROLL SUAVE
-       ======================================================== */
-
-    let isScrolling = false;
-
-    window.addEventListener(
-        'wheel',
-        (event) => {
-
-            if (window.innerWidth < 769) return;
-
-            if (isScrolling) return;
-
-            const sections = [
-                ...document.querySelectorAll('section')
-            ];
-
-            const currentScroll = window.scrollY;
-
-            let closestIndex = 0;
-            let closestDistance = Infinity;
-
-            sections.forEach((section, index) => {
-
-                const distance = Math.abs(
-                    section.offsetTop - currentScroll
-                );
 
                 if (distance < closestDistance) {
                     closestDistance = distance;

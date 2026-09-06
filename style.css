@@ -70,7 +70,7 @@ p {
 }
 .hero-text {
     position: absolute;
-    top: 110%;
+    top: 130%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;

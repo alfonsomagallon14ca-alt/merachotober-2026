@@ -1,1 +1,257 @@
+/* =========================
+   RESET
+========================= */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #111111;
+    color: #f2f0e8;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+section {
+    padding: 120px 8%;
+    min-height: 70vh;
+}
+
+.eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    opacity: 0.6;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 0.95;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: clamp(3rem, 8vw, 8rem);
+    max-width: 1100px;
+}
+
+p {
+    max-width: 650px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 8%;
+    background:
+        radial-gradient(circle at center, #444 0%, #111 60%);
+}
+
+.hero-content {
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: clamp(4rem, 15vw, 15rem);
+    letter-spacing: -0.06em;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-top: 25px;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.intro {
+    background: #e9e5d8;
+    color: #111;
+}
+
+.intro p:last-child {
+    font-size: 1.2rem;
+    margin-top: 40px;
+}
+
+
+/* =========================
+   WORDS
+========================= */
+
+.words {
+    background: #111;
+}
+
+.word-list {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.word-list span {
+    border: 1px solid #555;
+    padding: 20px;
+    transition: 0.3s ease;
+}
+
+.word-list span:hover {
+    background: #f2f0e8;
+    color: #111;
+    transform: translateY(-5px);
+}
+
+
+/* =========================
+   IMPACT
+========================= */
+
+.impact {
+    background: #c9b99a;
+    color: #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.impact p:last-child {
+    font-size: 1.3rem;
+    margin-top: 45px;
+}
+
+
+/* =========================
+   COLLABORATION
+========================= */
+
+.collaboration {
+    background: #171717;
+}
+
+.collaboration-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 70px;
+}
+
+.collaboration-grid article {
+    border-top: 1px solid #777;
+    padding-top: 25px;
+}
+
+.collaboration-grid h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.collaboration-grid p {
+    color: #bbb;
+}
+
+.collaboration-text {
+    margin-top: 70px;
+    font-size: 1.2rem;
+}
+
+
+/* =========================
+   CTA
+========================= */
+
+.cta {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #f2f0e8;
+    color: #111;
+}
+
+.cta h2 {
+    font-size: clamp(3rem, 9vw, 9rem);
+}
+
+.cta p {
+    margin-top: 30px;
+    font-size: 1.2rem;
+}
+
+.cta a {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 18px 35px;
+    border: 2px solid #111;
+    color: #111;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.cta a:hover {
+    background: #111;
+    color: #f2f0e8;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 30px 8%;
+    background: #111;
+    color: #777;
+    font-size: 0.8rem;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    section {
+        padding: 80px 6%;
+    }
+
+    .word-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .collaboration-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        min-height: 90vh;
+        padding: 6%;
+    }
+
+}

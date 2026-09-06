@@ -97,7 +97,7 @@ p {
 }
 .hero-image {
     width: auto;
-    height: 75vh;
+    height: 60vh;
     max-width: 100%;
     object-fit: contain;
     display: block;

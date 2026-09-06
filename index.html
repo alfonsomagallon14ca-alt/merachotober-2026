@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Merachotober Vol. 2 — Propuesta de colaboración</title>
+
+    <!-- =====================================================
+         FUENTES
+         ===================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- =====================================================
+         TAILWIND
+         ===================================================== -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        acid: '#00C844',
+                        forest: '#0B6B38',
+                        deep: '#0A0A0A',
+                        cold: '#F9F9FB',
+                        instaPink: '#E1306C',
+                        instaPurple: '#833AB4',
+                        electric: '#2B7FFF'
+                    },
+
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        marker: ['Permanent Marker', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- =====================================================
+         CSS PERSONALIZADO
+         ===================================================== -->
+
+    <style>
+
+        /* =====================================================
+           RESET / BASE
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: #0A0A0A;
+            font-family: 'Inter', sans-serif;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        /* =====================================================
+           SECCIONES
+           ===================================================== */
+
+        section {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            scroll-snap-align: start;
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           DISPLAY / TIPOGRAFÍA
+           ===================================================== */
+
+        .marker {
+            font-family: 'Permanent Marker', cursive;
+        }
+
+        .display-heavy {
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            line-height: 0.88;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           TEXTURAS
+           ===================================================== */
+
+        .noise {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.055;
+
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+        }
+
+        .grid-background {
+            background-image:
+                linear-gradient(rgba(0,0,0,0.045) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.045) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .green-grid {
+            background-image:
+                linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+
+        /* =====================================================
+           REVEAL
+           ===================================================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* =====================================================
+           NAV
+           ===================================================== */
+
+        .top-nav {
+            position: fixed;
+            z-index: 100;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            width: min(92%, 1100px);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 10px 14px;
+
+            border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 999px;
+
+            background: rgba(249,249,251,0.82);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .top-nav.dark {
+            color: white;
+            background: rgba(10,10,10,0.78);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .nav-brand {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            padding: 7px 11px;
+            border-radius: 999px;
+
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-decoration: none;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: #00C844;
+            color: #000;
+        }
+
+
+        /* =====================================================
+           SCROLL INDICATOR
+           ===================================================== */
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 34px;
+            background: currentColor;
+            opacity: 0.4;
+        }
+
+
+        /* =====================================================
+           HERO
+           ===================================================== */
+
+        .hero-logo {
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.10));
+        }
+
+        .hero-sticker {
+            position: absolute;
+
+            padding: 8px 13px;
+
+            background: #000;
+            color: #fff;
+
+            font-family: 'Permanent Marker', cursive;
+            font-size: 0.75rem;
+
+            transform: rotate(-6deg);
+
+            box-shadow: 5px 5px 0 #00C844;
+        }
+
+        .hero-sticker.one {
+            top: 26%;
+            left: 5%;
+        }
+
+        .hero-sticker.two {
+            right: 5%;
+            bottom: 27%;
+            transform: rotate(5deg);
+        }
+
+
+        /* =====================================================
+           IMAGE CARDS
+           ===================================================== */
+
+        .image-frame {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+        /* =====================================================
+           PROMPT CARDS
+           ===================================================== */
+
+        .prompt-card {
+            position: relative;
+            min-height: 180px;
+
+            border: 2px solid #000;
+            border-radius: 24px;
+
+            background: #F9F9FB;
+
+            padding: 24px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-5px) rotate(-0.5deg);
+            box-shadow: 8px 8px 0 #000;
+        }
+
+        .prompt-number {
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+        }
+
+
+        /* =====================================================
+           METRICS
+           ===================================================== */
+
+        .metric-card {
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 22px;
+
+            background: rgba(255,255,255,0.035);
+
+            padding: 24px;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        .metric-card:hover {
+            background: rgba(255,255,255,0.07);
+            transform: translateY(-4px);
+        }
+
+        .metric-number {
+            font-size: clamp(2rem, 5vw, 4.3rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.06em;
+        }
+
+        .metric-label {
+            margin-top: 10px;
+
+            font-size: 0.68rem;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: 0.13em;
+
+            color: rgba(255,255,255,0.45);
+        }
+
+
+        /* =====================================================
+           BARRAS
+           ===================================================== */
+
+        .progress-track {
+            width: 100%;
+            height: 9px;
+
+            overflow: hidden;
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.10);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 999px;
+        }
+
+
+        /* =====================================================
+           CALENDARIO
+           ===================================================== */
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 0.5rem;
+
+            width: 100%;
+            min-width: 0;
+        }
+
+        .calendar-day {
+            position: relative;
+
+            min-width: 0;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-button {
+            position: relative;
+
+            width: 70%;
+            max-width: 100%;
+            aspect-ratio: 1 / 1;
+
+            padding: 0;
+
+            border-radius: 50%;
+            overflow: hidden;
+
+            background: #252525;
+
+            border: 1px solid rgba(255,255,255,0.14);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .calendar-button:hover {
+            transform: scale(1.12);
+            border-color: #00C844;
+            box-shadow: 0 0 0 4px rgba(0,200,68,0.12);
+            z-index: 5;
+        }
+
+        .calendar-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .calendar-number {
+            position: absolute;
+
+            right: 7%;
+            bottom: 4%;
+
+            min-width: 22px;
+            height: 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0 5px;
+
+            border-radius: 999px;
+
+            background: #00C844;
+            color: #000;
+
+            font-size: 0.6rem;
+            font-weight: 900;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           MODAL CALENDARIO
+           ===================================================== */
+
+        .image-modal {
+            position: fixed;
+            z-index: 9999;
+
+            inset: 0;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            background: rgba(0,0,0,0.88);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+
+            width: min(90vw, 700px);
+            max-height: 90vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 85vh;
+
+            width: auto;
+            height: auto;
+
+            object-fit: contain;
+
+            border-radius: 18px;
+
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: fixed;
+
+            top: 22px;
+            right: 24px;
+
+            width: 46px;
+            height: 46px;
+
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+
+            background: rgba(0,0,0,0.5);
+            color: white;
+
+            font-size: 1.4rem;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #00C844;
+            color: #000;
+            transform: rotate(90deg);
+        }
+
+        .modal-caption {
+            position: absolute;
+
+            left: 50%;
+            bottom: -42px;
+
+            transform: translateX(-50%);
+
+            color: rgba(255,255,255,0.7);
+
+            font-size: 0.7rem;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           STORY CARDS
+           ===================================================== */
+
+        .story-card {
+            position: relative;
+
+            overflow: hidden;
+
+            border-radius: 26px;
+
+            background: #161616;
+
+            aspect-ratio: 9 / 16;
+        }
+
+        .story-placeholder {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
+
+            text-align: center;
+
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: inherit;
+        }
+
+
+        /* =====================================================
+           CONTACT
+           ===================================================== */
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 13px 18px;
+
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 999px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 0.75rem;
+            font-weight: 700;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .contact-link:hover {
+            background: #00C844;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 768px) {
+
+            html {
+                scroll-snap-type: none;
+            }
+
+            section {
+                min-height: auto;
+            }
+
+            .top-nav {
+                top: 10px;
+                width: calc(100% - 20px);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-sticker {
+                font-size: 0.62rem;
+                padding: 6px 9px;
+            }
+
+            .hero-sticker.one {
+                top: 22%;
+                left: 2%;
+            }
+
+            .hero-sticker.two {
+                right: 2%;
+                bottom: 21%;
+            }
+
+            .calendar-grid {
+                gap: 0.3rem;
+            }
+
+            .calendar-button {
+                width: 78%;
+            }
+
+            .calendar-number {
+                min-width: 17px;
+                height: 17px;
+                font-size: 0.5rem;
+            }
+
+            .modal-content {
+                width: 92vw;
+            }
+
+            .modal-image {
+                max-height: 78vh;
+                border-radius: 12px;
+            }
+
+            .modal-caption {
+                bottom: -32px;
+                font-size: 0.55rem;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVIGACIÓN
+         ===================================================== -->
+
+    <nav class="top-nav">
+
+        <div class="nav-brand">
+            MERACHOTOBER
+        </div>
+
+        <div class="nav-links">
+
+            <a href="#inicio">
+                INICIO
+            </a>
+
+            <a href="#concepto">
+                CONCEPTO
+            </a>
+
+            <a href="#metricas">
+                MÉTRICAS
+            </a>
+
+            <a href="#comunidad">
+                COMUNIDAD
+            </a>
+
+            <a href="#contacto">
+                CONTACTO
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MODAL DE IMÁGENES
+         ===================================================== -->
+
+    <div
+        id="imageModal"
+        class="image-modal"
+        aria-hidden="true"
+    >
+
+        <button
+            id="modalClose"
+            class="modal-close"
+            aria-label="Cerrar imagen"
+        >
+            ×
+        </button>
+
+        <div class="modal-content">
+
+            <img
+                id="modalImage"
+                class="modal-image"
+                src=""
+                alt=""
+            >
+
+            <div
+                id="modalCaption"
+                class="modal-caption"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         01 — PORTADA / CONCEPTO
+         ===================================================== -->
+
+    <section
+        id="inicio"
+        class="bg-cold text-black grid-background"
+    >
+
+        <div class="noise"></div>
+
+        <div class="hero-sticker one">
+            OCTUBRE 2026
+        </div>
+
+        <div class="hero-sticker two">
+            31 DÍAS / 31 DIBUJOS
+        </div>
+
+
+        <div class="relative z-10 min-h-screen flex flex-col">
+
+
+            <!-- HEADER -->
+
+            <div class="px-6 md:px-12 pt-28 md:pt-32">
+
+                <div class="max-w-7xl mx-auto flex justify-between items-start">
+
+                    <div>
+
+                        <p class="eyebrow text-forest">
+                            PROPUESTA DE COLABORACIÓN
+                        </p>
+
+                        <p class="mt-2 text-xs text-black/40 font-semibold">
+                            MERACHOTOBER — VOL. 2
+                        </p>
+
+                    </div>
+
+                    <div class="hidden md:block text-right">
+
+                        <p class="text-[10px] font-bold uppercase tracking-[0.18em]">
+                            PANAMÁ
+                        </p>
+
+                        <p class="text-[10px] text-black/40 mt-1">
+                            2026
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOGO -->
+
+            <div class="flex-1 flex items-center justify-center px-6">
+
+                <div class="w-full max-w-4xl">
+
+                    <div class="w-full aspect-[16/8] flex items-center justify-center">
+
+                        <img
+                            src="images/vol2.png"
+                            alt="Logo Merachotober Vol. 2"
+                            class="max-w-full max-h-full object-contain hero-logo"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INTRO -->
+
+            <div class="px-6 md:px-12 pb-24 md:pb-20">
+
+                <div class="max-w-7xl mx-auto grid md:grid-cols-12 gap-8 items-end">
+
+                    <div class="md:col-span-7">
+
+                        <p class="marker text-2xl md:text-4xl leading-tight">
+                            31 días, 31 palabras,
+                            <span class="text-forest">31 ilustraciones.</span>
+                        </p>
+
+                    </div>
+
+                    <div class="md:col-span-5 md:text-right">
+
+                        <p class="text-sm md:text-base font-medium leading-relaxed text-black/65">
+                            Una dinámica artística donde la comunidad propone
+                            las palabras y yo las convierto en dibujos durante
+                            todo octubre.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="scroll-indicator text-black/50">
+
+            <span>
+                SCROLL
+            </span>
+
+            <div class="scroll-line"></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         02 — ¿QUÉ ES MERACHOTOBER?
+         ===================================================== -->
+
+    <section
+        id="concepto"
+        class="bg-acid text-black"
+    >
+
+        <div class="noise"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+
+
+            <!-- TÍTULO -->
+
+            <div class="grid md:grid-cols-12 gap-8 mb-20">
+
+                <div class="md:col-span-8 reveal">
+
+                    <p class="eyebrow mb-5">
+                        01 — EL PROYECTO
+                    </p>
+
+                    <h2 class="display-heavy text-[clamp(4rem,11vw,9rem)]">
+                        ¿QUÉ ES
+                        <span class="marker block text-white [text-shadow:4px_4px_0_#000]">
+                            MERACHOTOBER?
+                        </span>
+                    </h2>
+
+                </div>
+
+                <div class="md:col-span-4 md:flex md:items-end reveal">
+
+                    <p class="text-sm md:text-base font-semibold leading-relaxed">
+                        Un reto creativo nacido en Panamá que transforma
+                        las ideas de una comunidad en una colección de
+                        ilustraciones durante octubre.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTENIDO -->
+
+            <div class="grid md:grid-cols-2 gap-10 md:gap-20 items-center">
+
+
+                <!-- TEXTO -->
+
+                <div class="reveal">
+
+                    <div class="space-y-7">
+
+                        <div>
+
+                            <p class="eyebrow mb-2">
+                                LA DINÁMICA
+                            </p>
+
+                            <p class="text-lg md:text-xl font-bold leading-relaxed">
+                                La comunidad propone palabras.
+                                Yo selecciono las que más me inspiran
+                                y las convierto en ilustraciones.
+                            </p>
+
+                        </div>
+
+
+                        <div class="border-t-2 border-black pt-6">
+
+                            <p class="text-sm leading-relaxed font-medium">
+                                Durante los 31 días de octubre se publica
+                                una nueva ilustración. Cada palabra abre
+                                una oportunidad para experimentar con
+                                personajes, objetos, conceptos y situaciones.
+                            </p>
+
+                        </div>
+
+
+                        <div class="flex flex-wrap gap-3 pt-2">
+
+                            <span class="px-4 py-2 bg-black text-white rounded-full text-xs font-bold">
+                                COMUNIDAD
+                            </span>
+
+                            <span class="px-4 py-2 bg-white rounded-full text-xs font-bold">
+                                ILUSTRACIÓN
+                            </span>
+
+                            <span class="px-4 py-2 bg-black text-white rounded-full text-xs font-bold">
+                                OCTUBRE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGEN -->
+
+                <div class="reveal">
+
+                    <div class="aspect-[4/5] bg-neutral-900 rounded-3xl p-5 shadow-2xl">
+
+                        <img
+                            src="images/slide0.jpg"
+                            alt="Post oficial de Merachotober"
+                            class="w-full h-full object-cover rounded-2xl"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FRASE -->
+
+            <div class="mt-24 md:mt-32 reveal">
+
+                <div class="border-y-2 border-black py-8">
+
+                    <p class="marker text-3xl md:text-6xl text-center leading-tight">
+                        USTEDES DAN LAS PALABRAS.
+                        <br>
+                        <span class="text-white [text-shadow:3px_3px_0_#000]">
+                            YO HAGO LOS DIBUJOS.
+                        </span>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- EJEMPLOS -->
+
+            <div class="mt-20 reveal">
+
+                <div class="flex justify-between items-end mb-7">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            FORMATO
+                        </p>
+
+                        <h3 class="font-black text-2xl md:text-3xl mt-2">
+                            Una ilustración por día.
+                        </h3>
+
+                    </div>
+
+                    <span class="marker text-xl">
+                        31 × 31
+                    </span>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+                    <div class="prompt-card">
+
+                        <span class="prompt-number">
+                            DÍA 01
+                        </span>
+
+                        <p class="marker text-3xl">
+                            UNA PALABRA
+                        </p>
+
+                        <p class="text-xs font-semibold text-black/50">
+                            El punto de partida.
+                        </p>
+
+                    </div>
+
+
+                    <div class="prompt-card">
+
+                        <span class="prompt-number">
+                            DÍA 15
+                        </span>
+
+                        <p class="marker text-3xl">
+                            UNA IDEA
+                        </p>
+
+                        <p class="text-xs font-semibold text-black/50">
+                            La mitad del reto.
+                        </p>
+
+                    </div>
+
+
+                    <div class="prompt-card">
+
+                        <span class="prompt-number">
+                            DÍA 31
+                        </span>
+
+                        <p class="marker text-3xl">
+                            UN DIBUJO
+                        </p>
+
+                        <p class="text-xs font-semibold text-black/50">
+                            El cierre de la colección.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         03 — MÉTRICAS
+         ===================================================== -->
+
+    <section
+        id="metricas"
+        class="bg-deep text-white"
+    >
+
+        <div class="noise"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+
+
+            <!-- HEADER -->
+
+            <div class="grid md:grid-cols-12 gap-8 items-end mb-16 reveal">
+
+                <div class="md:col-span-8">
+
+                    <p class="eyebrow text-acid">
+                        02 — RESULTADOS
+                    </p>
+
+                    <h2 class="display-heavy text-[clamp(4rem,10vw,8rem)] mt-5">
+                        EL PRIMER
+                        <span class="marker text-acid block">
+                            MERACHOTOBER.
+                        </span>
+                    </h2>
+
+                </div>
+
+                <div class="md:col-span-4">
+
+                    <p class="text-sm leading-relaxed text-white/55">
+                        La primera edición demostró que una dinámica
+                        sencilla puede convertirse en una conversación
+                        constante entre artista y comunidad.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MÉTRICAS -->
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 reveal">
+
+
+                <div class="metric-card">
+
+                    <div class="metric-number text-acid">
+                        38,325
+                    </div>
+
+                    <div class="metric-label">
+                        Interacciones
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-number">
+                        2,014
+                    </div>
+
+                    <div class="metric-label">
+                        Interacciones
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-number">
+                        532
+                    </div>
+
+                    <div class="metric-label">
+                        Me gusta
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <div class="metric-number">
+                        164
+                    </div>
+
+                    <div class="metric-label">
+                        Compartidos
+                    </div>
+
+                </div>
+
+
+                <div class="metric-card col-span-2 md:col-span-1">
+
+                    <div class="metric-number">
+                        54
+                    </div>
+
+                    <div class="metric-label">
+                        Comentarios
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DISTRIBUCIÓN -->
+
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+
+
+                <!-- INTERACCIONES -->
+
+                <div class="metric-card reveal">
+
+                    <div class="flex justify-between items-end mb-5">
+
+                        <div>
+
+                            <p class="eyebrow text-white/40">
+                                INTERACCIONES
+                            </p>
+
+                            <p class="text-2xl font-black mt-2">
+                                72.4%
+                            </p>
+
+                        </div>
+
+                        <span class="text-xs font-bold text-white/40">
+                            SEGUIDORES
+                        </span>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-fill bg-acid"
+                            style="width:72.4%"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="flex justify-between mt-3 text-[10px] font-bold text-white/35">
+
+                        <span>
+                            72.4% seguidores
+                        </span>
+
+                        <span>
+                            27.6% no seguidores
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VISUALIZACIONES -->
+
+                <div class="metric-card reveal">
+
+                    <div class="flex justify-between items-end mb-5">
+
+                        <div>
+
+                            <p class="eyebrow text-white/40">
+                                VISUALIZACIONES
+                            </p>
+
+                            <p class="text-2xl font-black mt-2">
+                                16,932
+                            </p>
+
+                        </div>
+
+                        <span class="text-xs font-bold text-white/40">
+                            CUENTAS
+                        </span>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-fill bg-electric"
+                            style="width:47.5%"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="flex justify-between mt-3 text-[10px] font-bold text-white/35">
+
+                        <span>
+                            47.5% seguidores
+                        </span>
+
+                        <span>
+                            52.5% no seguidores
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FRASE -->
+
+            <div class="mt-24 reveal">
+
+                <p class="marker text-center text-3xl md:text-6xl text-white/90">
+                    LA COMUNIDAD
+                    <span class="text-acid">
+                        YA ESTABA AHÍ.
+                    </span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         04 — COMUNIDAD + CALENDARIO
+         ===================================================== -->
+
+    <section
+        id="comunidad"
+        class="bg-deep text-white border-t border-white/10"
+    >
+
+        <div class="noise"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+
+
+            <!-- HEADER -->
+
+            <div class="grid md:grid-cols-12 gap-8 mb-16 reveal">
+
+                <div class="md:col-span-7">
+
+                    <p class="eyebrow text-acid">
+                        03 — COMUNIDAD
+                    </p>
+
+                    <h2 class="display-heavy text-[clamp(4rem,10vw,8rem)] mt-5">
+                        OCTUBRE
+                        <span class="marker text-acid block">
+                            EN 31 DÍAS.
+                        </span>
+                    </h2>
+
+                </div>
+
+                <div class="md:col-span-5 md:flex md:items-end">
+
+                    <p class="text-sm leading-relaxed text-white/55">
+                        Cada círculo representa una ilustración.
+                        Haz clic sobre cualquiera para verla en grande.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CALENDARIO -->
+
+            <div class="reveal">
+
+                <div class="flex items-center justify-between mb-7">
+
+                    <div>
+
+                        <p class="eyebrow text-white/40">
+                            MERACHOTOBER
+                        </p>
+
+                        <p class="font-black text-xl mt-1">
+                            31 ilustraciones
+                        </p>
+
+                    </div>
+
+                    <div class="marker text-acid text-xl">
+                        OCTUBRE
+                    </div>
+
+                </div>
+
+
+                <!-- DÍAS DE LA SEMANA -->
+
+                <div class="grid grid-cols-7 gap-2 mb-3">
+
+                    <div class="text-center text-[9px] font-black text-white/25">
+                        LUN
+                    </div>
+
+                    <div class="text-center text-[9px] font-black text-white/25">
+                        MAR
+                    </div>
+
+                    <div class="text-center text-[9px] font-black text-white/25">
+                        MIÉ
+                    </div>
+
+                    <div class="text-center text-[9px] font-black text-white/25">
+                        JUE
+                    </div>
+
+                    <div class="text-center text-[9px] font-black text-white/25">
+                        VIE
+                    </div>
+
+                    <div class="text-center text-[9px] font-black text-white/25">
+                        SÁB
+                    </div>
+
+                    <div class="text-center text-[9px] font-black text-white/25">
+                        DOM
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="calendar"
+                    class="calendar-grid"
+                ></div>
+
+            </div>
+
+
+            <!-- STORIES -->
+
+            <div class="mt-24 reveal">
+
+                <div class="flex items-end justify-between mb-8">
+
+                    <div>
+
+                        <p class="eyebrow text-white/40">
+                            INSTAGRAM STORIES
+                        </p>
+
+                        <h3 class="font-black text-2xl md:text-4xl mt-2">
+                            El proyecto también vive en stories.
+                        </h3>
+
+                    </div>
+
+                    <span class="hidden md:block marker text-acid text-xl">
+                        DAILY
+                    </span>
+
+                </div>
+
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+
+                    <!-- STORY 01 -->
+
+                    <div class="story-card">
+
+                        <div class="story-placeholder">
+
+                            <div>
+
+                                <p class="marker text-2xl text-acid">
+                                    DÍA 01
+                                </p>
+
+                                <p class="text-xs text-white/30 mt-3">
+                                    Story / participación
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STORY 02 -->
+
+                    <div class="story-card">
+
+                        <div class="story-placeholder">
+
+                            <div>
+
+                                <p class="marker text-2xl text-acid">
+                                    DÍA 02
+                                </p>
+
+                                <p class="text-xs text-white/30 mt-3">
+                                    Story / participación
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STORY 03 -->
+
+                    <div class="story-card hidden md:block">
+
+                        <div class="story-placeholder">
+
+                            <div>
+
+                                <p class="marker text-2xl text-acid">
+                                    DAILY
+                                </p>
+
+                                <p class="text-xs text-white/30 mt-3">
+                                    Contenido del proyecto
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STORY 04 -->
+
+                    <div class="story-card hidden md:block">
+
+                        <div class="story-placeholder">
+
+                            <div>
+
+                                <p class="marker text-2xl text-acid">
+                                    COMMUNITY
+                                </p>
+
+                                <p class="text-xs text-white/30 mt-3">
+                                    Participación
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENSAJE -->
+
+            <div class="mt-24 border-y border-white/10 py-10 reveal">
+
+                <div class="grid md:grid-cols-12 gap-8 items-center">
+
+                    <div class="md:col-span-8">
+
+                        <p class="marker text-3xl md:text-5xl leading-tight">
+                            NO ES SOLO UN RETO.
+                            <span class="text-acid">
+                                ES UNA COLECCIÓN HECHA CON LA GENTE.
+                            </span>
+                        </p>
+
+                    </div>
+
+                    <div class="md:col-span-4">
+
+                        <p class="text-sm leading-relaxed text-white/45">
+                            La participación de la comunidad convierte
+                            cada palabra en parte de la identidad del proyecto.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         05 — CONTACTO / COLABORACIÓN
+         ===================================================== -->
+
+    <section
+        id="contacto"
+        class="bg-acid text-black"
+    >
+
+        <div class="noise"></div>
+
+        <div class="relative z-10 min-h-screen flex flex-col">
+
+
+            <!-- TOP -->
+
+            <div class="px-6 md:px-12 pt-28 md:pt-32">
+
+                <div class="max-w-7xl mx-auto flex justify-between">
+
+                    <p class="eyebrow">
+                        04 — COLABORACIÓN
+                    </p>
+
+                    <p class="hidden md:block text-[10px] font-black uppercase tracking-[0.18em]">
+                        MERACHOTOBER VOL. 2
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MAIN -->
+
+            <div class="flex-1 flex items-center px-6 md:px-12 py-20">
+
+                <div class="max-w-7xl mx-auto w-full">
+
+
+                    <div class="grid md:grid-cols-12 gap-12 items-center">
+
+
+                        <!-- TITULAR -->
+
+                        <div class="md:col-span-8 reveal">
+
+                            <h2 class="display-heavy text-[clamp(4.5rem,12vw,11rem)]">
+
+                                HAGAMOS
+
+                                <span class="marker block text-white [text-shadow:5px_5px_0_#000]">
+                                    ALGO JUNTOS.
+                                </span>
+
+                            </h2>
+
+                        </div>
+
+
+                        <!-- INFO -->
+
+                        <div class="md:col-span-4 reveal">
+
+                            <p class="font-bold text-lg leading-relaxed mb-7">
+                                Merachotober Vol. 2 está abierto a
+                                colaboraciones y patrocinios.
+                            </p>
+
+                            <p class="text-sm font-medium leading-relaxed text-black/65 mb-8">
+                                Si tu marca quiere formar parte del proyecto,
+                                podemos conversar sobre una colaboración
+                                que tenga sentido para ambas partes.
+                            </p>
+
+
+                            <div class="flex flex-wrap gap-3">
+
+                                <a
+                                    href="https://instagram.com/meraacho"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="contact-link bg-black text-white border-black"
+                                >
+                                    INSTAGRAM
+                                </a>
+
+                                <a
+                                    href="mailto:meeraachoo@gmail.com"
+                                    class="contact-link bg-black text-white border-black"
+                                >
+                                    EMAIL
+                                </a>
+
+                                <a
+                                    href="https://wa.me/50761178561"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="contact-link bg-black text-white border-black"
+                                >
+                                    WHATSAPP
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="px-6 md:px-12 pb-8">
+
+                <div class="max-w-7xl mx-auto border-t border-black/20 pt-5">
+
+                    <div class="flex flex-col md:flex-row justify-between gap-3">
+
+                        <p class="text-[10px] font-black uppercase tracking-[0.15em]">
+                            MERACHO — ILUSTRACIÓN / DISEÑO
+                        </p>
+
+                        <p class="text-[10px] font-bold text-black/40">
+                            MERACHOTOBER VOL. 2 · 2026
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           CALENDARIO AUTOMÁTICO
+           ===================================================== */
+
+        const calendar = document.getElementById('calendar');
+
+        for (let day = 1; day <= 31; day++) {
+
+            const cell = document.createElement('div');
+
+            cell.className = 'calendar-day';
+
+            const imagePath = `images/dia ${day} Merachotober.jpg`;
+
+            cell.innerHTML = `
+                <button
+                    type="button"
+                    class="calendar-button"
+                    data-image="${imagePath}"
+                    data-day="${day}"
+                    aria-label="Ver ilustración del día ${day}"
+                >
+                    <img
+                        src="${imagePath}"
+                        alt="Ilustración Merachotober día ${day}"
+                        loading="lazy"
+                    >
+                </button>
+
+                <span class="calendar-number">
+                    ${day}
+                </span>
+            `;
+
+            calendar.appendChild(cell);
+        }
+
+
+        /* =====================================================
+           MODAL DE CALENDARIO
+           ===================================================== */
+
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const modalClose = document.getElementById('modalClose');
+
+
+        function openImageModal(imagePath, day) {
+
+            modalImage.src = imagePath;
+
+            modalImage.alt =
+                `Ilustración Merachotober — Día ${day}`;
+
+            modalCaption.textContent =
+                `MERACHOTOBER · DÍA ${day}`;
+
+            imageModal.classList.add('active');
+
+            imageModal.setAttribute('aria-hidden', 'false');
+
+            document.body.style.overflow = 'hidden';
+        }
+
+
+        function closeImageModal() {
+
+            imageModal.classList.remove('active');
+
+            imageModal.setAttribute('aria-hidden', 'true');
+
+            document.body.style.overflow = '';
+
+            setTimeout(() => {
+
+                modalImage.src = '';
+
+            }, 200);
+
+        }
+
+
+        calendar.addEventListener('click', function(event) {
+
+            const button =
+                event.target.closest('.calendar-button');
+
+            if (!button) return;
+
+            const imagePath =
+                button.dataset.image;
+
+            const day =
+                button.dataset.day;
+
+            openImageModal(imagePath, day);
+
+        });
+
+
+        modalClose.addEventListener(
+            'click',
+            closeImageModal
+        );
+
+
+        imageModal.addEventListener(
+            'click',
+            function(event) {
+
+                if (event.target === imageModal) {
+                    closeImageModal();
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            'keydown',
+            function(event) {
+
+                if (
+                    event.key === 'Escape' &&
+                    imageModal.classList.contains('active')
+                ) {
+                    closeImageModal();
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           REVEAL ON SCROLL
+           ===================================================== */
+
+        const revealElements =
+            document.querySelectorAll('.reveal');
+
+
+        const observer =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add('visible');
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: 0.15
+                }
+
+            );
+
+
+        revealElements.forEach(
+            element => observer.observe(element)
+        );
+
+
+        /* =====================================================
+           SNAP-SCROLL SUAVE
+           ===================================================== */
+
+        let isScrolling = false;
+
+
+        window.addEventListener(
+
+            'wheel',
+
+            (event) => {
+
+                /*
+                 * En móvil no hacemos snap manual.
+                 */
+
+                if (window.innerWidth < 769) return;
+
+
+                /*
+                 * Evitamos que varios eventos del mouse
+                 * disparen varios desplazamientos.
+                 */
+
+                if (isScrolling) return;
+
+
+                const sections =
+                    [...document.querySelectorAll('section')];
+
+
+                const currentScroll =
+                    window.scrollY;
+
+
+                let closestIndex = 0;
+
+                let closestDistance =
+                    Infinity;
+
+
+                sections.forEach(
+                    (section, index) => {
+
+                        const distance =
+                            Math.abs(
+                                section.offsetTop -
+                                currentScroll
+                            );
+
+
+                        if (
+                            distance <
+                            closestDistance
+                        ) {
+
+                            closestDistance =
+                                distance;
+
+                            closestIndex =
+                                index;
+
+                        }
+
+                    }
+                );
+
+
+                if (
+                    event.deltaY > 0 &&
+                    closestIndex <
+                    sections.length - 1
+                ) {
+
+                    isScrolling = true;
+
+
+                    sections[
+                        closestIndex + 1
+                    ].scrollIntoView({
+
+                        behavior: 'smooth'
+
+                    });
+
+                }
+
+
+                if (
+                    event.deltaY < 0 &&
+                    closestIndex > 0
+                ) {
+
+                    isScrolling = true;
+
+
+                    sections[
+                        closestIndex - 1
+                    ].scrollIntoView({
+
+                        behavior: 'smooth'
+
+                    });
+
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        isScrolling = false;
+
+                    },
+                    800
+                );
+
+            },
+
+            {
+                passive: true
+            }
+
+        );
+
+    </script>
+
+
+</body>
+
+</html>

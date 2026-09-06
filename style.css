@@ -262,10 +262,8 @@ footer {
         min-height: 90vh;
         padding: 6%;
     }
-
-}
 .hero-image {
-    width: 150%;
+    width: 200%;
     height: 100vh;
     object-fit: contain;
 }

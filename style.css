@@ -68,7 +68,33 @@ p {
     background: #fffeee;
     overflow: hidden;
 }
+.hero-text {
+    position: absolute;
+    top: 63%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    color: #111;
+}
 
+.hero-title {
+    font-size: clamp(1.8rem, 4vw, 4rem);
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+}
+
+.hero-slogan {
+    font-size: clamp(1.2rem, 2.5vw, 2.5rem);
+    font-style: italic;
+    margin: 0 auto 12px;
+}
+
+.hero-subtitle {
+    font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+    font-style: italic;
+}
 .hero-image {
     width: 100%;
     height: 100vh;

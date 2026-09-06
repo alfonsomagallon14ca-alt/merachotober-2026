@@ -975,22 +975,42 @@
 <script>
 
     /* ========================================================
-       CALENDARIO AUTOMÁTICO
+       CALENDARIO AUTOMÁTICO + GALERÍA
        ======================================================== */
 
     const calendar = document.getElementById('calendar');
+
+    /* ========================================================
+       IMÁGENES DE CADA DÍA
+       EDITA AQUÍ LAS RUTAS SI ALGÚN ARCHIVO CAMBIA
+       ======================================================== */
+
+    const calendarImages = {};
+
+    for (let day = 1; day <= 31; day++) {
+        calendarImages[day] = `images/dia ${day} Merachotober.jpg`;
+    }
+
+
+    /* ========================================================
+       CREAR LOS DÍAS DEL CALENDARIO
+       ======================================================== */
 
     for (let day = 1; day <= 31; day++) {
 
         const cell = document.createElement('div');
 
-        cell.className = 'calendar-day';
+        cell.className = 'calendar-day cursor-pointer';
 
         cell.innerHTML = `
-            <div class="calendar-avatar flex items-center justify-center">
-                <span class="text-[9px] text-white/20">
-                    [DÍA ${day}]
-                </span>
+            <div class="calendar-avatar overflow-hidden flex items-center justify-center">
+
+                <img
+                    src="${calendarImages[day]}"
+                    alt="Ilustración Día ${day} de Merachotober"
+                    class="w-full h-full object-cover"
+                >
+
             </div>
 
             <span class="calendar-number">
@@ -998,9 +1018,105 @@
             </span>
         `;
 
+        /* Abrir ilustración grande al hacer clic */
+
+        cell.addEventListener('click', () => {
+
+            openImageViewer(
+                calendarImages[day],
+                `Merachotober — Día ${day}`
+            );
+
+        });
+
         calendar.appendChild(cell);
     }
 
+
+    /* ========================================================
+       VISOR DE IMAGEN GRANDE
+       ======================================================== */
+
+    function openImageViewer(imageSrc, imageAlt) {
+
+        const viewer = document.createElement('div');
+
+        viewer.className = `
+            fixed inset-0 z-[9999]
+            bg-black/90
+            flex items-center justify-center
+            p-5 md:p-10
+            cursor-pointer
+        `;
+
+        viewer.innerHTML = `
+
+            <div class="relative max-w-5xl max-h-[90vh]">
+
+                <img
+                    src="${imageSrc}"
+                    alt="${imageAlt}"
+                    class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl"
+                >
+
+                <button
+                    class="
+                        absolute -top-4 -right-4
+                        w-10 h-10
+                        rounded-full
+                        bg-white text-black
+                        font-bold text-xl
+                        flex items-center justify-center
+                        cursor-pointer
+                    "
+                    aria-label="Cerrar imagen"
+                >
+                    ×
+                </button>
+
+            </div>
+        `;
+
+        document.body.appendChild(viewer);
+
+        /* Cerrar haciendo clic fuera de la imagen */
+
+        viewer.addEventListener('click', (event) => {
+
+            if (event.target === viewer) {
+                viewer.remove();
+            }
+
+        });
+
+        /* Cerrar con el botón X */
+
+        const closeButton = viewer.querySelector('button');
+
+        closeButton.addEventListener('click', () => {
+            viewer.remove();
+        });
+
+        /* Cerrar con ESC */
+
+        document.addEventListener('keydown', function closeWithEscape(event) {
+
+            if (event.key === 'Escape') {
+
+                viewer.remove();
+
+                document.removeEventListener(
+                    'keydown',
+                    closeWithEscape
+                );
+
+            }
+
+        });
+
+    }
+
+</script>
 
     /* ========================================================
        REVEAL ON SCROLL

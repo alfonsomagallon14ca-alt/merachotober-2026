@@ -264,3 +264,8 @@ footer {
     }
 
 }
+.hero-image {
+    width: 125%;
+    height: 100vh;
+    object-fit: contain;
+}

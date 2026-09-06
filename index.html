@@ -1,0 +1,3236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Merachotober Vol. 2 — Propuesta de colaboración
+    </title>
+
+
+    <!-- =========================================================
+         GOOGLE FONTS
+         ========================================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Permanent+Marker&family=Rubik+Glitch&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         TAILWIND CSS
+         ========================================================= -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <script>
+
+        tailwind.config = {
+
+            theme: {
+
+                extend: {
+
+                    colors: {
+
+                        acid: '#00C844',
+                        acidDark: '#00B33C',
+
+                        forest: '#0B6B38',
+
+                        blackDeep: '#0A0A0A',
+
+                        cold: '#F9F9FB',
+
+                        magenta: '#E1306C',
+                        purple: '#833AB4',
+
+                        electric: '#2B7FFF'
+
+                    },
+
+                    fontFamily: {
+
+                        inter: [
+                            'Inter',
+                            'sans-serif'
+                        ],
+
+                        marker: [
+                            'Permanent Marker',
+                            'cursive'
+                        ],
+
+                        glitch: [
+                            'Rubik Glitch',
+                            'cursive'
+                        ]
+
+                    }
+
+                }
+
+            }
+
+        };
+
+    </script>
+
+
+    <!-- =========================================================
+         CUSTOM CSS
+         ========================================================= -->
+
+    <style>
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            overflow-x: hidden;
+
+            background: #0A0A0A;
+
+            font-family: 'Inter', sans-serif;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           SNAP SCROLL
+           SOLO ESCRITORIO
+           ===================================================== */
+
+        @media (min-width: 769px) {
+
+            html {
+                scroll-snap-type: y proximity;
+            }
+
+            .snap-section {
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
+            }
+
+        }
+
+
+        /* =====================================================
+           TYPOGRAPHY
+           ===================================================== */
+
+        .marker {
+            font-family: 'Permanent Marker', cursive;
+        }
+
+        .glitch {
+            font-family: 'Rubik Glitch', cursive;
+        }
+
+        .section-title {
+            font-size: clamp(
+                2.8rem,
+                7vw,
+                7rem
+            );
+
+            line-height: 0.95;
+
+            font-weight: 800;
+
+            letter-spacing: -0.055em;
+        }
+
+        .eyebrow {
+            font-size: 0.68rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.16em;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           TEXTURA
+           ===================================================== */
+
+        .noise {
+
+            position: absolute;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            opacity: 0.035;
+
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+
+        }
+
+
+        /* =====================================================
+           REVEAL
+           ===================================================== */
+
+        .reveal {
+
+            opacity: 0;
+
+            transform: translateY(22px);
+
+            transition:
+                opacity .7s ease,
+                transform .7s ease;
+
+        }
+
+        .reveal.visible {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+
+        /* =====================================================
+           NAV
+           ===================================================== */
+
+        .nav {
+
+            position: fixed;
+
+            z-index: 500;
+
+            top: 18px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: min(
+                calc(100% - 36px),
+                1180px
+            );
+
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 8px 0 18px;
+
+            border-radius: 999px;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                .88
+            );
+
+            border: 1px solid rgba(
+                0,
+                0,
+                0,
+                .1
+            );
+
+            backdrop-filter: blur(15px);
+
+            -webkit-backdrop-filter: blur(15px);
+
+        }
+
+        .nav-logo {
+
+            font-family:
+                'Permanent Marker',
+                cursive;
+
+            font-size: .85rem;
+
+            white-space: nowrap;
+
+        }
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 2px;
+
+        }
+
+        .nav-links a {
+
+            padding: 8px 12px;
+
+            border-radius: 999px;
+
+            color: #000;
+
+            font-size: .62rem;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            transition:
+                background .2s ease,
+                color .2s ease;
+
+        }
+
+        .nav-links a:hover {
+
+            background: #00C844;
+
+        }
+
+
+        /* =====================================================
+           GENERIC CARD
+           ===================================================== */
+
+        .dark-card {
+
+            background: rgba(
+                255,
+                255,
+                255,
+                .035
+            );
+
+            border: 1px solid rgba(
+                255,
+                255,
+                255,
+                .12
+            );
+
+            border-radius: 20px;
+
+        }
+
+
+        /* =====================================================
+           METRICS
+           ===================================================== */
+
+        .metric-number {
+
+            font-size: clamp(
+                2rem,
+                5vw,
+                4.5rem
+            );
+
+            font-weight: 900;
+
+            line-height: .9;
+
+            letter-spacing: -.07em;
+
+        }
+
+        .metric-label {
+
+            margin-top: 12px;
+
+            color: rgba(
+                255,
+                255,
+                255,
+                .48
+            );
+
+            font-size: .65rem;
+
+            font-weight: 800;
+
+            line-height: 1.3;
+
+            letter-spacing: .1em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        /* =====================================================
+           ANALYTICS BARS
+           ===================================================== */
+
+        .analytics-track {
+
+            display: flex;
+
+            width: 100%;
+
+            height: 12px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background: #222;
+
+        }
+
+        .analytics-followers {
+
+            background: #E1306C;
+
+        }
+
+        .analytics-nonfollowers {
+
+            background: #833AB4;
+
+        }
+
+
+        /* =====================================================
+           CALENDAR
+           ===================================================== */
+
+        .calendar-wrapper {
+
+            width: 100%;
+
+            max-width: 100%;
+
+            overflow: hidden;
+
+        }
+
+        .calendar-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    7,
+                    minmax(0, 1fr)
+                );
+
+            width: 100%;
+
+            max-width: 100%;
+
+            gap: clamp(
+                7px,
+                1.2vw,
+                16px
+            );
+
+        }
+
+        .calendar-cell {
+
+            position: relative;
+
+            min-width: 0;
+
+            width: 100%;
+
+            aspect-ratio: 1 / 1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .calendar-button {
+
+            position: relative;
+
+            width: 74%;
+
+            max-width: 100%;
+
+            aspect-ratio: 1 / 1;
+
+            padding: 0;
+
+            overflow: hidden;
+
+            border-radius: 50%;
+
+            border: 1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .15
+                );
+
+            background: #222;
+
+            cursor: pointer;
+
+            transition:
+                transform .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
+
+        }
+
+        .calendar-button:hover {
+
+            transform: scale(1.12);
+
+            border-color: #00C844;
+
+            box-shadow:
+                0 0 0 5px
+                rgba(
+                    0,
+                    200,
+                    68,
+                    .12
+                );
+
+            z-index: 5;
+
+        }
+
+        .calendar-button img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+        .calendar-number {
+
+            position: absolute;
+
+            right: 2%;
+
+            bottom: 1%;
+
+            width: clamp(
+                18px,
+                2vw,
+                25px
+            );
+
+            height: clamp(
+                18px,
+                2vw,
+                25px
+            );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #00C844;
+
+            color: #000;
+
+            font-size: clamp(
+                .45rem,
+                .65vw,
+                .62rem
+            );
+
+            font-weight: 900;
+
+            pointer-events: none;
+
+        }
+
+
+        /* =====================================================
+           IMAGE MODAL
+           ===================================================== */
+
+        .modal {
+
+            position: fixed;
+
+            z-index: 9999;
+
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px;
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .92
+                );
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity .25s ease,
+                visibility .25s ease;
+
+        }
+
+        .modal.active {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+        }
+
+        .modal-inner {
+
+            position: relative;
+
+            width: min(
+                900px,
+                92vw
+            );
+
+            height: min(
+                90vh,
+                900px
+            );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .modal-image {
+
+            max-width: 100%;
+
+            max-height: 85vh;
+
+            width: auto;
+
+            height: auto;
+
+            object-fit: contain;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 30px 100px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .65
+                );
+
+        }
+
+        .modal-close {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 22px;
+
+            z-index: 10;
+
+            width: 44px;
+
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            border: 1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .3
+                );
+
+            background:
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .5
+                );
+
+            color: #fff;
+
+            font-size: 1.4rem;
+
+            cursor: pointer;
+
+        }
+
+        .modal-close:hover {
+
+            background: #00C844;
+
+            color: #000;
+
+        }
+
+        .modal-caption {
+
+            position: absolute;
+
+            bottom: -30px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .55
+                );
+
+            font-size: .65rem;
+
+            font-weight: 800;
+
+            letter-spacing: .12em;
+
+            white-space: nowrap;
+
+            text-transform: uppercase;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+           ===================================================== */
+
+        @media (max-width: 768px) {
+
+            html {
+                scroll-snap-type: none;
+            }
+
+            .nav {
+
+                top: 10px;
+
+                width:
+                    calc(
+                        100% - 20px
+                    );
+
+                height: 46px;
+
+                padding-left: 14px;
+
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .calendar-grid {
+
+                gap: 5px;
+
+            }
+
+            .calendar-button {
+
+                width: 82%;
+
+            }
+
+            .calendar-number {
+
+                width: 16px;
+
+                height: 16px;
+
+                right: 0;
+
+                bottom: 0;
+
+                font-size: .45rem;
+
+            }
+
+            .modal {
+
+                padding: 18px;
+
+            }
+
+            .modal-inner {
+
+                width: 94vw;
+
+                height: 82vh;
+
+            }
+
+            .modal-image {
+
+                max-width: 94vw;
+
+                max-height: 76vh;
+
+                border-radius: 10px;
+
+            }
+
+            .modal-close {
+
+                top: 14px;
+
+                right: 14px;
+
+            }
+
+            .modal-caption {
+
+                bottom: -25px;
+
+                font-size: .55rem;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         NAV
+         ========================================================= -->
+
+    <nav class="nav">
+
+        <div class="nav-logo">
+            MERACHOTOBER
+        </div>
+
+        <div class="nav-links">
+
+            <a href="#inicio">
+                INICIO
+            </a>
+
+            <a href="#prompt">
+                PROMPTS
+            </a>
+
+            <a href="#metricas">
+                MÉTRICAS
+            </a>
+
+            <a href="#comunidad">
+                COMUNIDAD
+            </a>
+
+            <a href="#contacto">
+                CONTACTO
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         MODAL
+         ========================================================= -->
+
+    <div
+        id="imageModal"
+        class="modal"
+        aria-hidden="true"
+    >
+
+        <button
+            id="modalClose"
+            class="modal-close"
+            aria-label="Cerrar imagen"
+        >
+            ×
+        </button>
+
+        <div class="modal-inner">
+
+            <img
+                id="modalImage"
+                class="modal-image"
+                src=""
+                alt=""
+            >
+
+            <div
+                id="modalCaption"
+                class="modal-caption"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         SECCIÓN 1
+         PORTADA & CONCEPTO
+         ========================================================= -->
+
+    <section
+        id="inicio"
+        class="snap-section min-h-screen bg-white text-black"
+    >
+
+        <div class="noise"></div>
+
+        <div
+            class="
+                relative
+                z-10
+                max-w-7xl
+                mx-auto
+                px-6
+                md:px-12
+                pt-32
+                pb-24
+            "
+        >
+
+
+            <!-- HERO -->
+
+            <div
+                class="
+                    flex
+                    flex-col
+                    items-center
+                    text-center
+                "
+            >
+
+                <!-- LOGO -->
+
+                <div
+                    class="
+                        w-full
+                        max-w-3xl
+                        aspect-[16/7]
+                        flex
+                        items-center
+                        justify-center
+                        reveal
+                    "
+                >
+
+                    <img
+                        src="images/vol2.png"
+                        alt="Merachotober Vol. 2"
+                        class="
+                            max-w-full
+                            max-h-full
+                            object-contain
+                        "
+                    >
+
+                </div>
+
+
+                <!-- TITULAR -->
+
+                <div class="mt-8 reveal">
+
+                    <p
+                        class="
+                            text-sm
+                            md:text-base
+                            font-bold
+                            tracking-[.12em]
+                            uppercase
+                        "
+                    >
+                        Propuesta de colaboración
+                    </p>
+
+                    <p
+                        class="
+                            mt-5
+                            text-xl
+                            md:text-3xl
+                            italic
+                            font-semibold
+                        "
+                    >
+                        31 días · 31 palabras ·
+                        31 ilustraciones
+                    </p>
+
+                    <p
+                        class="
+                            mt-3
+                            text-xs
+                            md:text-sm
+                            italic
+                            text-black/45
+                        "
+                    >
+                        Desglose de Métricas
+                        Merachotober
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONCEPTO -->
+
+            <div
+                class="
+                    grid
+                    md:grid-cols-2
+                    gap-12
+                    md:gap-20
+                    items-center
+                    mt-24
+                    md:mt-32
+                "
+            >
+
+
+                <!-- TEXTO -->
+
+                <div class="reveal">
+
+                    <p class="eyebrow text-forest">
+                        El proyecto
+                    </p>
+
+                    <h2
+                        class="
+                            section-title
+                            mt-4
+                        "
+                    >
+                        ¿Qué es
+                        <span class="marker">
+                            Merachotober?
+                        </span>
+                    </h2>
+
+
+                    <div
+                        class="
+                            mt-8
+                            space-y-5
+                            text-sm
+                            md:text-base
+                            leading-relaxed
+                            text-black/70
+                        "
+                    >
+
+                        <p>
+                            Merachotober es un reto de ilustración
+                            desarrollado durante el mes de octubre.
+                            La comunidad propone palabras y conceptos
+                            que posteriormente son transformados en
+                            ilustraciones.
+                        </p>
+
+                        <p>
+                            Para 2026, el proyecto busca crecer mediante
+                            colaboraciones con marcas y aliados que
+                            quieran formar parte de una experiencia
+                            artística construida alrededor de la
+                            participación de la comunidad.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            mt-8
+                            pt-6
+                            border-t
+                            border-black/10
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-sm
+                                md:text-base
+                                italic
+                                font-semibold
+                            "
+                        >
+                            Una palabra.
+                            Una interpretación.
+                            Una ilustración.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- IMAGEN -->
+
+                <div class="reveal">
+
+                    <div
+                        class="
+                            aspect-[4/5]
+                            bg-neutral-900
+                            rounded-3xl
+                            p-4
+                            shadow-2xl
+                        "
+                    >
+
+                        <img
+                            src="images/slide0.jpg"
+                            alt="Post oficial de Merachotober"
+                            class="
+                                w-full
+                                h-full
+                                object-cover
+                                rounded-2xl
+                            "
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SECCIÓN 2
+         PROMPT LIST + MUESTRA DE ARTE
+         ========================================================= -->
+
+    <section
+        id="prompt"
+        class="
+            snap-section
+            min-h-screen
+            bg-acid
+            text-black
+        "
+    >
+
+        <div class="noise"></div>
+
+        <div
+            class="
+                relative
+                z-10
+                max-w-7xl
+                mx-auto
+                px-6
+                md:px-12
+                py-24
+                md:py-32
+            "
+        >
+
+
+            <!-- HEADER -->
+
+            <div
+                class="
+                    grid
+                    md:grid-cols-2
+                    gap-10
+                    items-end
+                    mb-16
+                "
+            >
+
+                <div class="reveal">
+
+                    <p class="eyebrow">
+                        01 — La lista
+                    </p>
+
+                    <h2
+                        class="
+                            section-title
+                            mt-4
+                        "
+                    >
+                        Meracho
+                        <span class="marker block">
+                            Tober Vol. 1
+                        </span>
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="
+                        md:text-right
+                        reveal
+                    "
+                >
+
+                    <p
+                        class="
+                            text-sm
+                            md:text-base
+                            italic
+                            font-medium
+                            leading-relaxed
+                        "
+                    >
+                        Las palabras fueron el punto de
+                        partida de las 31 ilustraciones.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DOS COLUMNAS -->
+
+            <div
+                class="
+                    grid
+                    lg:grid-cols-2
+                    gap-12
+                    lg:gap-20
+                    items-start
+                "
+            >
+
+
+                <!-- LISTA -->
+
+                <div class="reveal">
+
+                    <div
+                        class="
+                            grid
+                            grid-cols-3
+                            gap-x-4
+                            md:gap-x-8
+                            gap-y-3
+                            text-xs
+                            md:text-sm
+                            font-semibold
+                        "
+                    >
+
+                        <!-- 1 - 10 -->
+
+                        <div class="space-y-3">
+
+                            <p>01. Palabra</p>
+                            <p>02. Palabra</p>
+                            <p>03. Palabra</p>
+                            <p>04. Palabra</p>
+                            <p>05. Palabra</p>
+                            <p>06. Palabra</p>
+                            <p>07. Palabra</p>
+                            <p>08. Palabra</p>
+                            <p>09. Palabra</p>
+                            <p>10. Palabra</p>
+
+                        </div>
+
+
+                        <!-- 11 - 20 -->
+
+                        <div class="space-y-3">
+
+                            <p>11. Palabra</p>
+                            <p>12. Palabra</p>
+                            <p>13. Palabra</p>
+                            <p>14. Palabra</p>
+                            <p>15. Palabra</p>
+                            <p>16. Palabra</p>
+                            <p>17. Palabra</p>
+                            <p>18. Palabra</p>
+                            <p>19. Palabra</p>
+                            <p>20. Palabra</p>
+
+                        </div>
+
+
+                        <!-- 21 - 31 -->
+
+                        <div class="space-y-3">
+
+                            <p>21. Palabra</p>
+                            <p>22. Palabra</p>
+                            <p>23. Palabra</p>
+                            <p>24. Palabra</p>
+                            <p>25. Palabra</p>
+                            <p>26. Palabra</p>
+                            <p>27. Palabra</p>
+                            <p>28. Palabra</p>
+                            <p>29. Palabra</p>
+                            <p>30. Palabra</p>
+                            <p>31. Palabra</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            mt-10
+                            border-t-2
+                            border-black
+                            pt-5
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-xs
+                                md:text-sm
+                                italic
+                                text-black/60
+                            "
+                        >
+                            31 palabras propuestas por
+                            la comunidad.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- GALERÍA -->
+
+                <div class="reveal">
+
+                    <div
+                        class="
+                            relative
+                            aspect-[4/3]
+                            border-2
+                            border-black
+                            rounded-3xl
+                            overflow-hidden
+                            bg-neutral-200
+                        "
+                    >
+
+                        <div
+                            class="
+                                absolute
+                                inset-0
+                                flex
+                                items-center
+                                justify-center
+                                p-8
+                                text-center
+                            "
+                        >
+
+                            <div>
+
+                                <p
+                                    class="
+                                        font-black
+                                        text-lg
+                                        md:text-xl
+                                    "
+                                >
+                                    [PLACEHOLDER]
+                                </p>
+
+                                <p
+                                    class="
+                                        mt-2
+                                        text-xs
+                                        md:text-sm
+                                        italic
+                                        text-black/50
+                                    "
+                                >
+                                    Imagen fotográfica
+                                    plano cenital de
+                                    cartas / arte impreso
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <p
+                        class="
+                            mt-4
+                            text-xs
+                            italic
+                            text-black/55
+                        "
+                    >
+                        Muestra visual del proyecto.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SECCIÓN 3
+         DASHBOARD DE MÉTRICAS
+         ========================================================= -->
+
+    <section
+        id="metricas"
+        class="
+            snap-section
+            min-h-screen
+            bg-blackDeep
+            text-white
+        "
+    >
+
+        <div class="noise"></div>
+
+        <div
+            class="
+                relative
+                z-10
+                max-w-7xl
+                mx-auto
+                px-6
+                md:px-12
+                py-24
+                md:py-32
+            "
+        >
+
+
+            <!-- HEADER -->
+
+            <div class="reveal">
+
+                <p class="eyebrow text-acid">
+                    02 — Analytics
+                </p>
+
+                <h2
+                    class="
+                        section-title
+                        mt-4
+                        max-w-5xl
+                    "
+                >
+                    Desglose de Métricas
+                    <span class="marker text-acid">
+                        Merachotober 2025
+                    </span>
+                </h2>
+
+            </div>
+
+
+
+            <!-- DASHBOARD -->
+
+            <div
+                class="
+                    grid
+                    lg:grid-cols-[.8fr_1.2fr]
+                    gap-12
+                    lg:gap-16
+                    mt-16
+                "
+            >
+
+
+                <!-- TEXTO -->
+
+                <div class="reveal">
+
+                    <p
+                        class="
+                            text-sm
+                            md:text-base
+                            leading-relaxed
+                            text-white/65
+                        "
+                    >
+                        La primera edición de Merachotober
+                        generó circulación orgánica a través
+                        de las publicaciones y de la participación
+                        directa de la comunidad.
+                    </p>
+
+                    <p
+                        class="
+                            mt-6
+                            text-sm
+                            md:text-base
+                            leading-relaxed
+                            text-white/45
+                        "
+                    >
+                        Las métricas muestran no solamente
+                        interacción de la audiencia existente,
+                        sino también circulación hacia personas
+                        que no seguían la cuenta.
+                    </p>
+
+
+                    <div
+                        class="
+                            mt-10
+                            border-l-2
+                            border-acid
+                            pl-5
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-sm
+                                md:text-base
+                                italic
+                                font-medium
+                                text-white/80
+                            "
+                        >
+                            El proyecto consiguió salir de la
+                            audiencia inmediata y alcanzar nuevas
+                            cuentas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MÉTRICAS -->
+
+                <div class="space-y-5 reveal">
+
+
+                    <!-- TARJETAS NUMÉRICAS -->
+
+                    <div
+                        class="
+                            grid
+                            grid-cols-2
+                            md:grid-cols-3
+                            gap-3
+                        "
+                    >
+
+                        <!-- ALCANCE -->
+
+                        <div
+                            class="
+                                dark-card
+                                p-5
+                                md:p-6
+                            "
+                        >
+
+                            <div
+                                class="
+                                    metric-number
+                                    text-acid
+                                "
+                            >
+                                38,325
+                            </div>
+
+                            <div class="metric-label">
+                                Alcance
+                            </div>
+
+                        </div>
+
+
+                        <!-- INTERACCIONES -->
+
+                        <div
+                            class="
+                                dark-card
+                                p-5
+                                md:p-6
+                            "
+                        >
+
+                            <div class="metric-number">
+                                2,014
+                            </div>
+
+                            <div class="metric-label">
+                                Interacciones
+                            </div>
+
+                        </div>
+
+
+                        <!-- ME GUSTA -->
+
+                        <div
+                            class="
+                                dark-card
+                                p-5
+                                md:p-6
+                            "
+                        >
+
+                            <div class="metric-number">
+                                532
+                            </div>
+
+                            <div class="metric-label">
+                                Me gusta
+                            </div>
+
+                        </div>
+
+
+                        <!-- COMPARTIDOS -->
+
+                        <div
+                            class="
+                                dark-card
+                                p-5
+                                md:p-6
+                            "
+                        >
+
+                            <div class="metric-number">
+                                164
+                            </div>
+
+                            <div class="metric-label">
+                                Compartidos
+                            </div>
+
+                        </div>
+
+
+                        <!-- COMENTARIOS -->
+
+                        <div
+                            class="
+                                dark-card
+                                p-5
+                                md:p-6
+                            "
+                        >
+
+                            <div class="metric-number">
+                                54
+                            </div>
+
+                            <div class="metric-label">
+                                Comentarios
+                            </div>
+
+                        </div>
+
+
+                        <!-- GUARDADOS -->
+
+                        <div
+                            class="
+                                dark-card
+                                p-5
+                                md:p-6
+                            "
+                        >
+
+                            <div
+                                class="
+                                    metric-number
+                                    text-white/50
+                                "
+                            >
+                                —
+                            </div>
+
+                            <div class="metric-label">
+                                Guardados
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- BARRAS -->
+
+                    <div
+                        class="
+                            dark-card
+                            p-6
+                            md:p-8
+                        "
+                    >
+
+                        <p class="eyebrow text-white/40">
+                            Distribución de audiencia
+                        </p>
+
+
+                        <!-- BARRA 1 -->
+
+                        <div class="mt-7">
+
+                            <div
+                                class="
+                                    flex
+                                    justify-between
+                                    items-end
+                                    gap-5
+                                    mb-3
+                                "
+                            >
+
+                                <div>
+
+                                    <p
+                                        class="
+                                            text-sm
+                                            font-bold
+                                        "
+                                    >
+                                        Interacciones
+                                    </p>
+
+                                    <p
+                                        class="
+                                            mt-1
+                                            text-xs
+                                            text-white/35
+                                        "
+                                    >
+                                        Seguidores vs.
+                                        no seguidores
+                                    </p>
+
+                                </div>
+
+                                <p
+                                    class="
+                                        text-xs
+                                        font-black
+                                    "
+                                >
+                                    72.4% / 27.6%
+                                </p>
+
+                            </div>
+
+
+                            <div class="analytics-track">
+
+                                <div
+                                    class="
+                                        analytics-followers
+                                    "
+                                    style="width:72.4%"
+                                ></div>
+
+                                <div
+                                    class="
+                                        analytics-nonfollowers
+                                    "
+                                    style="width:27.6%"
+                                ></div>
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    flex
+                                    flex-wrap
+                                    justify-between
+                                    gap-3
+                                    mt-3
+                                    text-[10px]
+                                    font-bold
+                                "
+                            >
+
+                                <span
+                                    class="
+                                        text-magenta
+                                    "
+                                >
+                                    <span
+                                        class="
+                                            inline-block
+                                            w-2
+                                            h-2
+                                            rounded-full
+                                            bg-magenta
+                                            mr-1
+                                        "
+                                    ></span>
+
+                                    72.4% Seguidores
+                                </span>
+
+                                <span
+                                    class="
+                                        text-purple
+                                    "
+                                >
+                                    <span
+                                        class="
+                                            inline-block
+                                            w-2
+                                            h-2
+                                            rounded-full
+                                            bg-purple
+                                            mr-1
+                                        "
+                                    ></span>
+
+                                    27.6% No seguidores
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- BARRA 2 -->
+
+                        <div class="mt-9">
+
+                            <div
+                                class="
+                                    flex
+                                    justify-between
+                                    items-end
+                                    gap-5
+                                    mb-3
+                                "
+                            >
+
+                                <div>
+
+                                    <p
+                                        class="
+                                            text-sm
+                                            font-bold
+                                        "
+                                    >
+                                        Visualizaciones
+                                    </p>
+
+                                    <p
+                                        class="
+                                            mt-1
+                                            text-xs
+                                            text-white/35
+                                        "
+                                    >
+                                        16,932 cuentas
+                                    </p>
+
+                                </div>
+
+                                <p
+                                    class="
+                                        text-xs
+                                        font-black
+                                    "
+                                >
+                                    47.5% / 52.5%
+                                </p>
+
+                            </div>
+
+
+                            <div class="analytics-track">
+
+                                <div
+                                    class="
+                                        analytics-followers
+                                    "
+                                    style="width:47.5%"
+                                ></div>
+
+                                <div
+                                    class="
+                                        analytics-nonfollowers
+                                    "
+                                    style="width:52.5%"
+                                ></div>
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    flex
+                                    flex-wrap
+                                    justify-between
+                                    gap-3
+                                    mt-3
+                                    text-[10px]
+                                    font-bold
+                                "
+                            >
+
+                                <span
+                                    class="
+                                        text-magenta
+                                    "
+                                >
+                                    <span
+                                        class="
+                                            inline-block
+                                            w-2
+                                            h-2
+                                            rounded-full
+                                            bg-magenta
+                                            mr-1
+                                        "
+                                    ></span>
+
+                                    47.5% Seguidores
+                                </span>
+
+                                <span
+                                    class="
+                                        text-purple
+                                    "
+                                >
+                                    <span
+                                        class="
+                                            inline-block
+                                            w-2
+                                            h-2
+                                            rounded-full
+                                            bg-purple
+                                            mr-1
+                                        "
+                                    ></span>
+
+                                    52.5% No seguidores
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SECCIÓN 4
+         PRUEBA SOCIAL + COMUNIDAD + CALENDARIO
+         ========================================================= -->
+
+    <section
+        id="comunidad"
+        class="
+            snap-section
+            min-h-screen
+            bg-blackDeep
+            text-white
+            border-t
+            border-white/10
+        "
+    >
+
+        <div class="noise"></div>
+
+        <div
+            class="
+                relative
+                z-10
+                max-w-7xl
+                mx-auto
+                px-6
+                md:px-12
+                py-24
+                md:py-32
+            "
+        >
+
+
+            <!-- HEADER -->
+
+            <div
+                class="
+                    grid
+                    md:grid-cols-2
+                    gap-10
+                    items-end
+                    reveal
+                "
+            >
+
+                <div>
+
+                    <p class="eyebrow text-acid">
+                        03 — Prueba social
+                    </p>
+
+                    <h2
+                        class="
+                            section-title
+                            mt-4
+                        "
+                    >
+                        La comunidad
+                        <span
+                            class="
+                                marker
+                                text-acid
+                            "
+                        >
+                            participó.
+                        </span>
+                    </h2>
+
+                </div>
+
+
+                <p
+                    class="
+                        text-sm
+                        md:text-base
+                        italic
+                        text-white/55
+                        md:text-right
+                    "
+                >
+                    El proyecto continuó la conversación
+                    más allá de cada publicación.
+                </p>
+
+            </div>
+
+
+
+            <!-- STORIES -->
+
+            <div
+                class="
+                    grid
+                    grid-cols-2
+                    md:grid-cols-2
+                    gap-4
+                    md:gap-6
+                    max-w-2xl
+                    mt-16
+                    reveal
+                "
+            >
+
+
+                <!-- STORY 1 -->
+
+                <div
+                    class="
+                        aspect-[9/16]
+                        rounded-3xl
+                        overflow-hidden
+                        bg-neutral-900
+                        border
+                        border-white/10
+                    "
+                >
+
+                    <div
+                        class="
+                            w-full
+                            h-full
+                            flex
+                            items-center
+                            justify-center
+                            p-6
+                            text-center
+                        "
+                    >
+
+                        <div>
+
+                            <p
+                                class="
+                                    marker
+                                    text-2xl
+                                    text-acid
+                                "
+                            >
+                                DÍA 01
+                            </p>
+
+                            <p
+                                class="
+                                    mt-3
+                                    text-xs
+                                    italic
+                                    text-white/35
+                                "
+                            >
+                                [PLACEHOLDER:
+                                Screenshot Instagram
+                                Story 1]
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STORY 2 -->
+
+                <div
+                    class="
+                        aspect-[9/16]
+                        rounded-3xl
+                        overflow-hidden
+                        bg-neutral-900
+                        border
+                        border-white/10
+                    "
+                >
+
+                    <div
+                        class="
+                            w-full
+                            h-full
+                            flex
+                            items-center
+                            justify-center
+                            p-6
+                            text-center
+                        "
+                    >
+
+                        <div>
+
+                            <p
+                                class="
+                                    marker
+                                    text-2xl
+                                    text-acid
+                                "
+                            >
+                                DÍA 02
+                            </p>
+
+                            <p
+                                class="
+                                    mt-3
+                                    text-xs
+                                    italic
+                                    text-white/35
+                                "
+                            >
+                                [PLACEHOLDER:
+                                Screenshot Instagram
+                                Story 2]
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CALENDARIO -->
+
+            <div class="mt-24 md:mt-32 reveal">
+
+
+                <!-- CALENDAR HEADER -->
+
+                <div
+                    class="
+                        grid
+                        md:grid-cols-2
+                        gap-8
+                        items-end
+                        mb-10
+                    "
+                >
+
+                    <div>
+
+                        <p class="eyebrow text-white/35">
+                            Octubre 2025
+                        </p>
+
+                        <h3
+                            class="
+                                text-3xl
+                                md:text-5xl
+                                font-black
+                                tracking-tight
+                                mt-3
+                            "
+                        >
+                            31 días.
+                            <span
+                                class="
+                                    marker
+                                    text-acid
+                                "
+                            >
+                                31 ilustraciones.
+                            </span>
+                        </h3>
+
+                    </div>
+
+
+                    <div
+                        class="
+                            md:text-right
+                        "
+                    >
+
+                        <p
+                            class="
+                                text-sm
+                                leading-relaxed
+                                text-white/50
+                            "
+                        >
+                            La participación de la comunidad
+                            convirtió cada palabra en una nueva
+                            pieza de la colección.
+                        </p>
+
+                        <p
+                            class="
+                                mt-3
+                                text-xs
+                                italic
+                                text-white/30
+                            "
+                        >
+                            Casi 1,000 ilustraciones participaron
+                            alrededor de la dinámica.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DAYS -->
+
+                <div
+                    class="
+                        grid
+                        grid-cols-7
+                        gap-1
+                        md:gap-2
+                        mb-4
+                    "
+                >
+
+                    <div
+                        class="
+                            text-center
+                            text-[9px]
+                            md:text-[10px]
+                            font-black
+                            text-white/25
+                        "
+                    >
+                        DOM
+                    </div>
+
+                    <div
+                        class="
+                            text-center
+                            text-[9px]
+                            md:text-[10px]
+                            font-black
+                            text-white/25
+                        "
+                    >
+                        LUN
+                    </div>
+
+                    <div
+                        class="
+                            text-center
+                            text-[9px]
+                            md:text-[10px]
+                            font-black
+                            text-white/25
+                        "
+                    >
+                        MAR
+                    </div>
+
+                    <div
+                        class="
+                            text-center
+                            text-[9px]
+                            md:text-[10px]
+                            font-black
+                            text-white/25
+                        "
+                    >
+                        MIÉ
+                    </div>
+
+                    <div
+                        class="
+                            text-center
+                            text-[9px]
+                            md:text-[10px]
+                            font-black
+                            text-white/25
+                        "
+                    >
+                        JUE
+                    </div>
+
+                    <div
+                        class="
+                            text-center
+                            text-[9px]
+                            md:text-[10px]
+                            font-black
+                            text-white/25
+                        "
+                    >
+                        VIE
+                    </div>
+
+                    <div
+                        class="
+                            text-center
+                            text-[9px]
+                            md:text-[10px]
+                            font-black
+                            text-white/25
+                        "
+                    >
+                        SÁB
+                    </div>
+
+                </div>
+
+
+
+                <!-- CALENDAR -->
+
+                <div class="calendar-wrapper">
+
+                    <div
+                        id="calendar"
+                        class="calendar-grid"
+                    ></div>
+
+                </div>
+
+
+                <p
+                    class="
+                        mt-7
+                        text-center
+                        text-[10px]
+                        italic
+                        text-white/30
+                    "
+                >
+                    Haz clic en cualquier ilustración
+                    para verla en grande.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         SECCIÓN 5
+         CIERRE + CONTACTO
+         ========================================================= -->
+
+    <section
+        id="contacto"
+        class="
+            snap-section
+            min-h-screen
+            bg-blackDeep
+            text-white
+            border-t
+            border-white/10
+        "
+    >
+
+        <div class="noise"></div>
+
+        <div
+            class="
+                relative
+                z-10
+                min-h-screen
+                max-w-7xl
+                mx-auto
+                px-6
+                md:px-12
+                py-24
+                md:py-32
+                flex
+                flex-col
+                justify-between
+            "
+        >
+
+
+            <!-- LOGO -->
+
+            <div
+                class="
+                    flex
+                    justify-center
+                    reveal
+                "
+            >
+
+                <img
+                    src="images/vol2.png"
+                    alt="Merachotober Vol. 2"
+                    class="
+                        w-full
+                        max-w-2xl
+                        max-h-48
+                        object-contain
+                    "
+                >
+
+            </div>
+
+
+
+            <!-- CTA -->
+
+            <div
+                class="
+                    text-center
+                    max-w-5xl
+                    mx-auto
+                    py-20
+                "
+            >
+
+                <p
+                    class="
+                        eyebrow
+                        text-acid
+                        reveal
+                    "
+                >
+                    04 — Colaboración
+                </p>
+
+
+                <h2
+                    class="
+                        section-title
+                        mt-5
+                        reveal
+                    "
+                >
+                    ¿Quieres ser parte de
+                    <span class="marker text-acid">
+                        Merachotober 2026?
+                    </span>
+                </h2>
+
+
+                <p
+                    class="
+                        max-w-2xl
+                        mx-auto
+                        mt-8
+                        text-sm
+                        md:text-base
+                        leading-relaxed
+                        text-white/55
+                        reveal
+                    "
+                >
+                    Busco marcas y colaboradores interesados
+                    en formar parte de una campaña artística
+                    construida alrededor de ilustración,
+                    comunidad y participación.
+                </p>
+
+
+                <!-- CONTACT LINKS -->
+
+                <div
+                    class="
+                        flex
+                        flex-wrap
+                        justify-center
+                        gap-3
+                        mt-10
+                        reveal
+                    "
+                >
+
+                    <a
+                        href="https://instagram.com/meraacho"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="
+                            px-5
+                            py-3
+                            rounded-full
+                            border
+                            border-white/20
+                            text-xs
+                            font-bold
+                            transition
+                            hover:bg-acid
+                            hover:text-black
+                            hover:border-acid
+                        "
+                    >
+                        @meraacho
+                    </a>
+
+
+                    <a
+                        href="mailto:meeraachoo@gmail.com"
+                        class="
+                            px-5
+                            py-3
+                            rounded-full
+                            border
+                            border-white/20
+                            text-xs
+                            font-bold
+                            transition
+                            hover:bg-acid
+                            hover:text-black
+                            hover:border-acid
+                        "
+                    >
+                        meeraachoo@gmail.com
+                    </a>
+
+
+                    <a
+                        href="https://wa.me/50761178561"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="
+                            px-5
+                            py-3
+                            rounded-full
+                            border
+                            border-white/20
+                            text-xs
+                            font-bold
+                            transition
+                            hover:bg-acid
+                            hover:text-black
+                            hover:border-acid
+                        "
+                    >
+                        +507 6117-8561
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div
+                class="
+                    flex
+                    flex-col
+                    md:flex-row
+                    justify-between
+                    gap-3
+                    pt-6
+                    border-t
+                    border-white/10
+                "
+            >
+
+                <p
+                    class="
+                        text-[9px]
+                        font-bold
+                        uppercase
+                        tracking-[.15em]
+                        text-white/35
+                    "
+                >
+                    Meracho — Ilustración / Diseño
+                </p>
+
+                <p
+                    class="
+                        text-[9px]
+                        font-bold
+                        uppercase
+                        tracking-[.15em]
+                        text-white/25
+                    "
+                >
+                    Merachotober Vol. 2 · 2026
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script>
+
+
+        /* =====================================================
+           CALENDARIO
+           ===================================================== */
+
+        const calendar =
+            document.getElementById('calendar');
+
+
+        for (
+            let day = 1;
+            day <= 31;
+            day++
+        ) {
+
+            const cell =
+                document.createElement('div');
+
+            cell.className =
+                'calendar-cell';
+
+
+            const imagePath =
+                `images/dia ${day} Merachotober.jpg`;
+
+
+            cell.innerHTML = `
+
+                <button
+                    type="button"
+                    class="calendar-button"
+                    data-image="${imagePath}"
+                    data-day="${day}"
+                    aria-label="Ver ilustración del día ${day}"
+                >
+
+                    <img
+                        src="${imagePath}"
+                        alt="Ilustración Merachotober día ${day}"
+                        loading="lazy"
+                    >
+
+                </button>
+
+
+                <span class="calendar-number">
+                    ${day}
+                </span>
+
+            `;
+
+
+            calendar.appendChild(cell);
+
+        }
+
+
+
+        /* =====================================================
+           MODAL
+           ===================================================== */
+
+        const imageModal =
+            document.getElementById(
+                'imageModal'
+            );
+
+
+        const modalImage =
+            document.getElementById(
+                'modalImage'
+            );
+
+
+        const modalCaption =
+            document.getElementById(
+                'modalCaption'
+            );
+
+
+        const modalClose =
+            document.getElementById(
+                'modalClose'
+            );
+
+
+
+        function openModal(
+            image,
+            day
+        ) {
+
+            modalImage.src = image;
+
+            modalImage.alt =
+                `Merachotober día ${day}`;
+
+
+            modalCaption.textContent =
+                `MERACHOTOBER · DÍA ${day}`;
+
+
+            imageModal.classList.add(
+                'active'
+            );
+
+
+            imageModal.setAttribute(
+                'aria-hidden',
+                'false'
+            );
+
+
+            document.body.classList.add(
+                'modal-open'
+            );
+
+        }
+
+
+
+        function closeModal() {
+
+            imageModal.classList.remove(
+                'active'
+            );
+
+
+            imageModal.setAttribute(
+                'aria-hidden',
+                'true'
+            );
+
+
+            document.body.classList.remove(
+                'modal-open'
+            );
+
+
+            setTimeout(
+                () => {
+
+                    modalImage.src = '';
+
+                },
+                250
+            );
+
+        }
+
+
+
+        calendar.addEventListener(
+            'click',
+            (event) => {
+
+                const button =
+                    event.target.closest(
+                        '.calendar-button'
+                    );
+
+
+                if (!button) return;
+
+
+                openModal(
+                    button.dataset.image,
+                    button.dataset.day
+                );
+
+            }
+        );
+
+
+
+        modalClose.addEventListener(
+            'click',
+            closeModal
+        );
+
+
+
+        imageModal.addEventListener(
+            'click',
+            (event) => {
+
+                if (
+                    event.target === imageModal
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+
+        document.addEventListener(
+            'keydown',
+            (event) => {
+
+                if (
+                    event.key === 'Escape' &&
+                    imageModal.classList.contains(
+                        'active'
+                    )
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+
+        /* =====================================================
+           REVEAL ON SCROLL
+           ===================================================== */
+
+        const revealElements =
+            document.querySelectorAll(
+                '.reveal'
+            );
+
+
+        const revealObserver =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(
+                        (entry) => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    'visible'
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold: 0.12
+                }
+
+            );
+
+
+        revealElements.forEach(
+            (element) => {
+
+                revealObserver.observe(
+                    element
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           SNAP SCROLL DE ESCRITORIO
+           ===================================================== */
+
+        let scrolling = false;
+
+
+        function enableDesktopSnap() {
+
+            return window.innerWidth >= 769;
+
+        }
+
+
+        window.addEventListener(
+            'wheel',
+            (event) => {
+
+                /*
+                 * NO forzamos snap en teléfonos.
+                 */
+
+                if (
+                    !enableDesktopSnap()
+                ) {
+                    return;
+                }
+
+
+                if (scrolling) {
+                    return;
+                }
+
+
+                /*
+                 * Si el movimiento horizontal
+                 * domina, ignoramos el evento.
+                 */
+
+                if (
+                    Math.abs(event.deltaX) >
+                    Math.abs(event.deltaY)
+                ) {
+                    return;
+                }
+
+
+                const sections =
+                    Array.from(
+                        document.querySelectorAll(
+                            '.snap-section'
+                        )
+                    );
+
+
+                const current =
+                    window.scrollY;
+
+
+                let closest =
+                    0;
+
+
+                let distance =
+                    Infinity;
+
+
+                sections.forEach(
+                    (section, index) => {
+
+                        const sectionDistance =
+                            Math.abs(
+                                section.offsetTop -
+                                current
+                            );
+
+
+                        if (
+                            sectionDistance <
+                            distance
+                        ) {
+
+                            distance =
+                                sectionDistance;
+
+                            closest =
+                                index;
+
+                        }
+
+                    }
+                );
+
+
+                /*
+                 * Solo hacemos snap si estamos
+                 * relativamente cerca de una sección.
+                 * Esto evita saltos inesperados.
+                 */
+
+                if (
+                    distance >
+                    window.innerHeight * .45
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    event.deltaY > 0 &&
+                    closest <
+                    sections.length - 1
+                ) {
+
+                    scrolling = true;
+
+
+                    sections[
+                        closest + 1
+                    ].scrollIntoView({
+
+                        behavior: 'smooth',
+
+                        block: 'start'
+
+                    });
+
+
+                    setTimeout(
+                        () => {
+
+                            scrolling = false;
+
+                        },
+                        750
+                    );
+
+                }
+
+
+                else if (
+                    event.deltaY < 0 &&
+                    closest > 0
+                ) {
+
+                    scrolling = true;
+
+
+                    sections[
+                        closest - 1
+                    ].scrollIntoView({
+
+                        behavior: 'smooth',
+
+                        block: 'start'
+
+                    });
+
+
+                    setTimeout(
+                        () => {
+
+                            scrolling = false;
+
+                        },
+                        750
+                    );
+
+                }
+
+            },
+
+            {
+                passive: true
+            }
+
+        );
+
+
+
+        /* =====================================================
+           PREVENIR ERRORES AL REDIMENSIONAR
+           ===================================================== */
+
+        window.addEventListener(
+            'resize',
+            () => {
+
+                /*
+                 * Si se pasa de móvil a desktop
+                 * o viceversa mientras el modal está
+                 * abierto, mantenemos el estado limpio.
+                 */
+
+                if (
+                    window.innerWidth < 769 &&
+                    scrolling
+                ) {
+
+                    scrolling = false;
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
